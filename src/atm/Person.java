@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package atm;
-import java.util.UUID;
-import java.util.List; 
-import java.util.ArrayList; 
-import java.util.Arrays;
+import static atm.Server.mClient;
 import java.util.Scanner;
 
 /**
@@ -15,40 +12,30 @@ import java.util.Scanner;
  * @author Vues
  */
 public class Person {
-
-        static ArrayList<String> userInfo = new ArrayList<String>();
-
-        static String name;
-        static String id;
+    
+        Server ser = new Server();
         
-    public Person(){
-    
-    }
-            
-    public Person(String name, String id){
-        this.name = name;
-        this.id = id;
-                      
-        }
-  
-    
-    @Override
-    public String toString(){
-    return "Users are the following: " + name + " " + id;
-    }
-    
-    public void name(){
+        public static String nameU;
+        public static double iDeposit;
+        
+        public void name(){
+        
+        Card c = new Card();
         
         Scanner s = new Scanner(System.in);
-        System.out.print("Enter First and Last Name:");
-        name = s.nextLine();
-        id = UUID.randomUUID().toString();
+        System.out.print("Enter desired Username" + "\n");
+        nameU = s.nextLine();
+                       
+        System.out.print("Enter an initial deposit" + "\n");
+        iDeposit = s.nextDouble();
+        mClient.put(nameU, iDeposit);
         
-        userInfo.add(name);
-         
-        System.out.println("Thank you for registering " + name);
-        //System.out.println("Your id is:" + id );
+        c.card();
+        ser.server();
+        mClient.put(nameU, iDeposit);
         
-        System.out.println(userInfo + "\n");
+                 
+        System.out.println("Thank you for registering " + nameU + "\n");
+        System.out.println("Account Successfully Registered" + "\n");
     }
 }

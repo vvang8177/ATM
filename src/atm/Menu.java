@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package atm;
-import static atm.Person.userInfo;
+import static atm.Server.client;
+import static atm.Server.mClient;
 import java.util.Scanner;
 /**
  *
@@ -12,8 +13,12 @@ import java.util.Scanner;
  */
 public class Menu {
     
+    public static String fName;
+
     public void mainMenu(){
+        Server ser = new Server();
         Person p = new Person();
+        Balance bal = new Balance();
         boolean b = true;
         boolean inLoop = true;
         
@@ -21,56 +26,62 @@ public class Menu {
         System.out.println("Welcome Please Login or Register an Account");  
         System.out.println("Enter 1 to Register an Account");  
         System.out.println("Enter 2 to Login");
+        System.out.println("Enter 3 Check All Clients in HashMap");
+        System.out.println("Enter 4 Stop Program");
+
         
         Scanner s = new Scanner(System.in);
         int picked = s.nextInt();
         int picked2;
-        String fName = s.nextLine();
-        
+        fName = s.nextLine();
+
         if(picked == 1){
-            System.out.println("Registering New Account ");
-            p.name();
-            System.out.println("Account Successfully Registered" + "\n");
-            
-            
+            p.name(); 
+       
         }
+        
         else if(picked == 2){
-            System.out.println("You Picked 2");
-            System.out.println("Enter Your Full Name: ");
+            inLoop = true;
+            System.out.println("Enter Your Username: ");
             fName = s.nextLine();
             
-            if(userInfo.contains(fName)){
+            if(client.containsKey(fName)){
                 while(inLoop == true){
-                System.out.println("Welcome " + fName+ " \n");
-                
+                System.out.println("Welcome " + fName);
+                System.out.print("Current balance: $" + mClient.get(fName)+ "\n");
                 System.out.println("1. Withdraw ");
                 System.out.println("2. Deposit ");
-                System.out.println("3. Main Menu ");
+                System.out.println("3. Main Menu ");                                
+
                 picked2 = s.nextInt();
                 
                 switch(picked2){
                     case 1:
-                        System.out.print("\nWithdraw amount: $");
-                        picked2 = s.nextInt();
-                        System.out.print("Withdrew Successfully \n");
+                        System.out.print("Current balance: $" + mClient.get(fName));
+                        bal.withdraw();
                         break;
                     case 2:
-                        System.out.print("\nDeposit amount: $");
-                        picked2 = s.nextInt();
-                        System.out.print("Deposit Successfully \n\n");
+                        System.out.print("Current balance: $" + mClient.get(fName));
+                        bal.deposit();
                         break;
                     case 3:
                         inLoop = false;
                         System.out.print("\n");
                         break;
                 }
-                
+             
             }
             }
             else{
-                System.out.println("The System can not find your account \n");
+                System.out.println("\nThe System can not find your account \n");
             }
             
+        }
+        else if(picked == 3){
+            ser.server();
+        }
+        else if(picked == 4){
+            System.exit(0);
         }
     }
     }

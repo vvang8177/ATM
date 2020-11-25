@@ -17,11 +17,7 @@ public class ATM {
     public static void main(String[] args) {
         // TODO code application logic here
         Menu m = new Menu();
-        m.mainMenu();
-        //Person person = new Person();
-        Card card = new Card();
-        Server server = new Server();
-        
+        m.mainMenu();        
         
     }
     
