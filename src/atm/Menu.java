@@ -23,12 +23,15 @@ public class Menu {
         boolean inLoop = true;
         
         while(b == true){
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
         System.out.println("Welcome Please Login or Register an Account");  
         System.out.println("Enter 1 to Register an Account");  
         System.out.println("Enter 2 to Login");
         System.out.println("Enter 3 Check All Clients in HashMap");
         System.out.println("Enter 4 Stop Program");
-
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
         
         Scanner s = new Scanner(System.in);
         int picked = s.nextInt();
@@ -47,11 +50,15 @@ public class Menu {
             
             if(client.containsKey(fName)){
                 while(inLoop == true){
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
                 System.out.println("Welcome " + fName);
                 System.out.print("Current balance: $" + mClient.get(fName)+ "\n");
                 System.out.println("1. Withdraw ");
                 System.out.println("2. Deposit ");
-                System.out.println("3. Main Menu ");                                
+                System.out.println("3. Logout ");
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
 
                 picked2 = s.nextInt();
                 
@@ -78,7 +85,7 @@ public class Menu {
             
         }
         else if(picked == 3){
-            ser.server();
+            ser.users();
         }
         else if(picked == 4){
             System.exit(0);
