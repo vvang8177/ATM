@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package atm;
 
@@ -15,45 +12,62 @@ import java.util.Scanner;
  */
 public class Balance {
     
-    static double currentBalance;
-    static double newBalance;
-    static double withdrawAmount;
-    static double depositAmount;
+    private double currentBalance;
+    private double newBalance;
+    private double withdrawAmount;
+    private double depositAmount;
     Scanner s = new Scanner(System.in);
 
-    
+    //User can withdraw from their account
     public void withdraw(){
         
+        //get current balance
         currentBalance =  mClient.get(fName);
         
+        //Ask withdraw amount
         System.out.println("\nEnter withdraw amount: ");
         withdrawAmount = s.nextDouble();
         
-        if(currentBalance <withdrawAmount){
-        System.out.println("\nNot enough fund");
+        /*
+        if statement for if balance is less than requested withdraw amount
+        show text. If balance is greater then withdraw amount requested.
+        */
+        if(currentBalance <withdrawAmount)
+        {
+            System.out.println("Not enough fund");
         }
-        
         
         else if( currentBalance >= withdrawAmount)
                 {
                     newBalance = currentBalance - withdrawAmount;
                     mClient.put(fName, newBalance); 
-                    System.out.print("Withdrew Successfully \n" + "\n");
+                    System.out.print("Withdrew Successfully" + "\n");
                 }
        
     }
     
+    //User can deposit to their accont
     public void deposit(){
         
         try{
-        currentBalance =  mClient.get(fName);
-        System.out.println("\nEnter deposit amount: ");
-        depositAmount = s.nextDouble();
-        newBalance = currentBalance + depositAmount;
-        mClient.put(fName, newBalance);
-        System.out.print("Deposit Successfully \n" + "\n");
-        }
-        catch(NumberFormatException e){
+            //get current balance
+            currentBalance =  mClient.get(fName);
+            
+            //request deposit amount
+            System.out.println("\nEnter deposit amount: ");
+            depositAmount = s.nextDouble();
+            
+            //add current balance and requested deposit amount
+            newBalance = currentBalance + depositAmount;
+            
+            //store new added balance to correct user.
+            mClient.put(fName, newBalance);
+            
+            System.out.print("Deposit Successfully" + "\n");
+            }
+            
+            //allow numbers only
+            catch(NumberFormatException e){
             System.out.println("No letters, numbers only");
         }
     }
