@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package atm;
 import static atm.Card.cardNum;
@@ -17,13 +14,17 @@ public class Server {
    public static HashMap<String, Integer> client = new HashMap<>();
    public static HashMap<String, Double> mClient = new HashMap<>();
 
-    public void server(){
-        
+   //add user and card number to hashmap
+   public void server(){
         client.put(nameU, cardNum);
-        
-        System.out.println(client + "\n");
-        System.out.println(mClient + "\n");
-
+    }
+   
+   //shows all users infomation 
+   public void users(){
+        System.out.println("Username and Card Number");
+        System.out.println(client);
+        System.out.println("Current balance");
+        System.out.println(mClient);
     }
     
 }

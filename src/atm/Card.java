@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package atm;
 import java.util.Random;
@@ -16,6 +13,10 @@ public class Card {
     
     public void card(){
         
+        /*
+        This class randomly generates a 4 digit card number to apply to each
+        new user.
+        */
         Random r = new Random();
         cardNum = r.nextInt(9999);
         System.out.println("Your card number is " + cardNum + "\n");

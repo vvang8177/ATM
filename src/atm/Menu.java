@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package atm;
 import static atm.Server.client;
@@ -22,6 +19,7 @@ public class Menu {
         boolean b = true;
         boolean inLoop = true;
         
+        //User options always active until terminated. 
         while(b == true){
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
@@ -37,12 +35,18 @@ public class Menu {
         int picked = s.nextInt();
         int picked2;
         fName = s.nextLine();
-
+        
+        //Avaiable options when picked based from above loop
+        //If picked 1 called Person class and run name method.
         if(picked == 1){
             p.name(); 
        
         }
         
+        /*
+        If picked 2, match entered username with server. If server has entered name
+        user can choose to withdraw, deposit, or logout.
+        */        
         else if(picked == 2){
             inLoop = true;
             System.out.println("Enter Your Username: ");
@@ -64,14 +68,17 @@ public class Menu {
                 
                 switch(picked2){
                     case 1:
+                        //Allows user to withdraw
                         System.out.print("Current balance: $" + mClient.get(fName));
                         bal.withdraw();
                         break;
                     case 2:
+                        //Allows user to deposit
                         System.out.print("Current balance: $" + mClient.get(fName));
                         bal.deposit();
                         break;
                     case 3:
+                        //Set loop to false to go back to main menu
                         inLoop = false;
                         System.out.print("\n");
                         break;
@@ -80,14 +87,17 @@ public class Menu {
             }
             }
             else{
+                //If entered username doesnt match system. Display this message.
                 System.out.println("\nThe System can not find your account \n");
             }
             
         }
         else if(picked == 3){
+            //Shows current users in server.
             ser.users();
         }
         else if(picked == 4){
+            //Terminate program.
             System.exit(0);
         }
     }
