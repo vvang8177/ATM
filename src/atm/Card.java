@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class Card {
     
-    public static short cardNum;
+    private static short cardNum;
     
     public short card(){
         

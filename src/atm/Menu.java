@@ -14,7 +14,7 @@ public class Menu {
     private int counter=1;
     private int picked;
     private int picked2;
-    private boolean b = true;
+    private final boolean b = true;
     private boolean inLoop = true;
     
     public void mainMenu(){
