@@ -15,7 +15,5 @@ public class ATM {
         // TODO code application logic here
         Menu m = new Menu();
         m.mainMenu();        
-        
     }
-    
 }

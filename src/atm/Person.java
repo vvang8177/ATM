@@ -1,7 +1,7 @@
 /*
  */
 package atm;
-import static atm.Server.mClient;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,34 +10,150 @@ import java.util.Scanner;
  */
 public class Person {
     
-        public static String nameU;
-        public static double iDeposit;
+    public static ArrayList<Person> client = new ArrayList<>();
+    private String username;
+    private float iDeposit;
+    private String firstName;
+    private String lastName;
+    private short cardNum;
+    private short cc;
+    private float balance;
+    private String password;
         
-        public void name(){
+    public Person(){}
+        
+    public Person(String uName, 
+            String fName, 
+            String lName,
+            String cPassword,
+            short cNum, 
+            float cbalance){
+        username=uName;
+        firstName=fName;
+        lastName=lName;
+        cardNum=cNum;
+        balance=cbalance;
+        password=cPassword;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setusername(String username) {
+        this.username = username;
+    }
+    
+    /**
+     * @return the firstName
+    */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the cardNum
+     */
+    public short getCardNum() {
+        return cardNum;
+    }
+
+    /**
+     * @param cardNum the cardNum to set
+     */
+    public void setCardNum(short cardNum) {
+        this.cardNum = cardNum;
+    }
+    
+    /**
+     * @return the balance
+     */
+    public float getBalance() {
+        return balance;
+    }
+
+    /**
+     * @param balance the balance to set
+     */
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public void account(){
         
         Card c = new Card();
-        Server ser = new Server();
-
+        //Server ser = new Server();
         Scanner s = new Scanner(System.in);
         
         //Request username
         System.out.print("Enter desired Username" + "\n");
-        nameU = s.nextLine();
+        username = s.nextLine();
         
+        //Request password
+        System.out.print("Enter desired Password" + "\n");
+        password = s.nextLine();
+            
+        //Request First Name
+        System.out.print("Enter Your First Name" + "\n");
+        firstName=s.nextLine();
+            
+        //Request Last Name
+        System.out.print("Enter Your Last Name" + "\n");
+        lastName=s.nextLine();
+
         //Request initial deposit              
         System.out.print("Enter an initial deposit" + "\n");
-        iDeposit = s.nextDouble();
-        
-        //Store both requested items into server.
-        mClient.put(nameU, iDeposit);
+        iDeposit = s.nextFloat();
         
         //Generate card number.
-        c.card();
+        cc = c.card();
         
+        //New Person information
+        Person p = new Person(username, firstName, lastName, password, cc, iDeposit);
+        
+        //Store requested items into server.
+        client.add(p);
+                
         //Store user along with card number.
-        ser.server();
+        //ser.server();
 
-        System.out.println("Thank you for registering " + nameU);
+        System.out.println("Thank you for registering " + firstName + " " + lastName);
         System.out.println("Account Successfully Registered");
     }
+        
+        
 }

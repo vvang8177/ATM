@@ -1,8 +1,7 @@
 /*
  */
 package atm;
-import static atm.Server.client;
-import static atm.Server.mClient;
+import static atm.Person.client;
 import java.util.Scanner;
 /**
  *
@@ -11,13 +10,16 @@ import java.util.Scanner;
 public class Menu {
     
     public static String fName;
-
+    private static String uPassword;
+    private int counter=1;
+    private int picked;
+    private int picked2;
+    private boolean b = true;
+    private boolean inLoop = true;
+    
     public void mainMenu(){
-        Server ser = new Server();
         Person p = new Person();
         Balance bal = new Balance();
-        boolean b = true;
-        boolean inLoop = true;
         
         //User options always active until terminated. 
         while(b == true){
@@ -32,15 +34,14 @@ public class Menu {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
         
         Scanner s = new Scanner(System.in);
-        int picked = s.nextInt();
-        int picked2;
+        picked = s.nextInt();
         fName = s.nextLine();
+        
         
         //Avaiable options when picked based from above loop
         //If picked 1 called Person class and run name method.
         if(picked == 1){
-            p.name(); 
-       
+            p.account(); 
         }
         
         /*
@@ -51,55 +52,74 @@ public class Menu {
             inLoop = true;
             System.out.println("Enter Your Username: ");
             fName = s.nextLine();
+            System.out.println("Enter Your Password: ");
+            uPassword = s.nextLine();
             
-            if(client.containsKey(fName)){
-                while(inLoop == true){
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
-                System.out.println("Welcome " + fName);
-                System.out.print("Current balance: $" + mClient.get(fName)+ "\n");
-                System.out.println("1. Withdraw ");
-                System.out.println("2. Deposit ");
-                System.out.println("3. Logout ");
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
-                System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
-
-                picked2 = s.nextInt();
+            for(Person nP:client){
+                if(nP.getUsername().equals(fName)&&nP.getPassword().equals(uPassword)){
+                    
+                    
+                    while(inLoop == true){
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                    System.out.println("Welcome " + nP.getFirstName()+ " "+nP.getLastName());
+                    System.out.printf("Current balance: $%.2f", nP.getBalance());
+                    System.out.println("");
+                    System.out.println("1. Withdraw ");
+                    System.out.println("2. Deposit ");
+                    System.out.println("3. Logout ");
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
+                    
+                    picked2 = s.nextInt();
                 
-                switch(picked2){
-                    case 1:
-                        //Allows user to withdraw
-                        System.out.print("Current balance: $" + mClient.get(fName));
-                        bal.withdraw();
-                        break;
-                    case 2:
-                        //Allows user to deposit
-                        System.out.print("Current balance: $" + mClient.get(fName));
-                        bal.deposit();
-                        break;
-                    case 3:
-                        //Set loop to false to go back to main menu
-                        inLoop = false;
-                        System.out.print("\n");
-                        break;
-                }
+                    switch(picked2){
+                        case 1:
+                            //Allows user to withdraw
+                            System.out.printf("Current balance: $%.2f", nP.getBalance());
+                            bal.withdraw();
+                            break;
+                        case 2:
+                            //Allows user to deposit
+                            System.out.printf("Current balance: $%.2f", nP.getBalance());
+                            bal.deposit();
+                            break;
+                        case 3:
+                            //Set loop to false to go back to main menu
+                            inLoop = false;
+                            System.out.print("\n");
+                            break;
+                        }
              
+                    }
+                }
+                
+                else{
+                    //If entered username doesnt match system. Display this message.
+                    System.out.println("\nThe System can not find your account or incorrect password\n");
+                }
             }
-            }
-            else{
-                //If entered username doesnt match system. Display this message.
-                System.out.println("\nThe System can not find your account \n");
-            }
-            
         }
+            
         else if(picked == 3){
             //Shows current users in server.
-            ser.users();
+            for(Person nP:client){
+                System.out.println("\n"+"Client "+counter+"\n"+
+                        "Username: " + nP.getUsername() +"\n" 
+                        + "First Name: " + nP.getFirstName() +"\n" 
+                        + "Last Name: " + nP.getLastName() +"\n" 
+                        + "Password: " + nP.getPassword() +"\n" 
+                        + "Card Number: " + nP.getCardNum());
+                System.out.printf("Current balance: $%.2f", nP.getBalance());
+                System.out.println("\n");
+                counter++;
+            }
         }
+        
         else if(picked == 4){
             //Terminate program.
             System.exit(0);
         }
-    }
+        }
     }
 }
