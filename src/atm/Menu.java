@@ -2,6 +2,7 @@
  */
 package atm;
 import static atm.Person.client;
+import java.sql.SQLException;
 import java.util.Scanner;
 /**
  *
@@ -17,9 +18,10 @@ public class Menu {
     private final boolean b = true;
     private boolean inLoop = true;
     
-    public void mainMenu(){
+    public void mainMenu() throws SQLException{
         Person p = new Person();
         Balance bal = new Balance();
+        Database db = new Database();
         
         //User options always active until terminated. 
         while(b == true){
@@ -30,9 +32,9 @@ public class Menu {
         System.out.println("Enter 2 to Login");
         System.out.println("Enter 3 Check All Clients in HashMap");
         System.out.println("Enter 4 Stop Program");
+        db.connect();
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" );
-        
         Scanner s = new Scanner(System.in);
         picked = s.nextInt();
         fName = s.nextLine();
@@ -41,7 +43,7 @@ public class Menu {
         //Avaiable options when picked based from above loop
         //If picked 1 called Person class and run name method.
         if(picked == 1){
-            p.account(); 
+            p.account();             
         }
         
         /*

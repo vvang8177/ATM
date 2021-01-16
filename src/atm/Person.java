@@ -1,6 +1,7 @@
 /*
  */
 package atm;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,8 +16,8 @@ public class Person {
     private float iDeposit;
     private String firstName;
     private String lastName;
-    private short cardNum;
-    private short cc;
+    private int cardNum;
+    private int cc;
     private float balance;
     private String password;
         
@@ -26,7 +27,7 @@ public class Person {
             String fName, 
             String lName,
             String cPassword,
-            short cNum, 
+            int cNum, 
             float cbalance){
         username=uName;
         firstName=fName;
@@ -77,14 +78,14 @@ public class Person {
     /**
      * @return the cardNum
      */
-    public short getCardNum() {
+    public int getCardNum() {
         return cardNum;
     }
 
     /**
      * @param cardNum the cardNum to set
      */
-    public void setCardNum(short cardNum) {
+    public void setCardNum(int cardNum) {
         this.cardNum = cardNum;
     }
     
@@ -113,7 +114,12 @@ public class Person {
         this.password = password;
     }
     
-    public void account(){
+    public static String capitalize(String inputString){
+        String output = inputString.substring(0,1).toUpperCase();
+        return output;
+    }
+    
+    public void account() throws SQLException{
         
         Card c = new Card();
         //Server ser = new Server();
@@ -143,17 +149,15 @@ public class Person {
         cc = c.card();
         
         //New Person information
-        Person p = new Person(username, firstName, lastName, password, cc, iDeposit);
+        Person p = new Person(username, capitalize(firstName), capitalize(lastName), password, cc, iDeposit);
         
         //Store requested items into server.
         client.add(p);
                 
-        //Store user along with card number.
-        //ser.server();
-
+        //Store USER_ID and FIRSTNAME to DATABASE.
+        Database.insert();
+            
         System.out.println("Thank you for registering " + firstName + " " + lastName);
         System.out.println("Account Successfully Registered");
     }
-        
-        
 }
